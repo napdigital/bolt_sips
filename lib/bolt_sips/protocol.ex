@@ -30,7 +30,10 @@ defmodule Bolt.Sips.Protocol do
 
   def connect(opts) do
     conf = opts |> Bolt.Sips.Utils.default_config()
-    host = _to_hostname(conf[:hostname])
+    host = case conf[:host] do
+      nil -> _to_hostname(conf[:hostname])
+      result -> _to_hostname(result)
+    end
     port = conf[:port]
     auth = extract_auth(conf[:basic_auth])
     timeout = conf[:timeout]
