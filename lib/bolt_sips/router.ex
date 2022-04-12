@@ -201,7 +201,7 @@ defmodule Bolt.Sips.Router do
         if Version.match?(short, ">= 3.2.3") do
           props = Keyword.get(opts, :routing_context, %{})
           database = Keyword.get(opts, :database, "neo4j")
-          {"CALL dbms.cluster.routing.getRoutingTable($context, #{database})", %{context: props}}
+          {"CALL dbms.cluster.routing.getRoutingTable($context, '#{database}')", %{context: props}}
         else
           {"CALL dbms.cluster.routing.getServers()", %{}}
         end
